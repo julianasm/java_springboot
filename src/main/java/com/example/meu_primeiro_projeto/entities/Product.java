@@ -1,16 +1,23 @@
 package com.example.meu_primeiro_projeto.entities;
 
+import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Double price;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Product(Long id, String name, Double price, Category category) {
@@ -20,6 +27,10 @@ public class Product implements Serializable {
         this.price = price;
         this.category = category;
     }
+
+    public Product() {
+    }
+
 
     public Long getId() {
         return id;
